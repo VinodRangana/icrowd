@@ -1,0 +1,668 @@
+ 
+ICrowd E-commerce Platform
+System Requirements Specification
+Group No:Group J
+Group Member IDs:s21/155, 409, 500, 512
+Date:01/03/2025
+Revisions:Version 1.0
+CSC3213 - Project in Computer Science I
+Department of Statistics and Computer Science
+Faculty of Science
+University of Peradeniya
+Version History
+Version 
+Date
+Modified By
+Reviewed By
+Modification Details
+0.1
+23/02/2026
+S/21/155
+Group J
+Drafted introduction, architecture diagram, and system constraints.
+0.2
+25/02/2026
+S/21/512
+S/21/155
+added User Authentication and Profile requirements.
+0.3
+25/02/2026
+S/21/500
+S/21/155
+Added Product Catalogue and Search requirements.
+0.4
+26/02/2026
+S/21/409
+S/21/155
+Added Admin Inventory and Reporting requirements.
+0.5
+27/02/2026
+S/21/155
+S/21/409
+Added Cart, Checkout, and Payment requirements.
+0.6
+27/02/2026
+S/21/155
+S/21/409
+Added functional testing/use case
+0.9
+01/03/2026
+Group J
+S/21/155
+Cross-team review to validate requirements and fix conflicts
+1.0
+01/03/2026
+S/21/155
+Group J
+Finalized formatting and compiled V1.0 for submission.
+Table of Contents
+1.Introduction3
+1.1.Purpose3
+1.2.Scope3
+1.3.Data Flow Diagram4
+1.4.Definitions and Acronyms4
+1.5.References4
+2.General Description5
+2.1.System Functions5
+2.2.User Characteristics5
+3.General Constraints6
+3.1.Software Constraints6
+3.2.Hardware Constraints6
+4.Assumptions and Dependencies7
+5.Functional Requirements Master List8
+6.Functional Requirement FR-REQ-5.19
+6.1.Description9
+6.2.System Input9
+6.3.System Processing9
+6.4.System Output9
+6.5.Other9
+6.6.Constraints9
+6.7.Data Handling9
+6.8.Error Handling9
+7.Functional Requirement FR-REQ-5.210
+7.1.Description10
+7.2.System Input10
+7.3.System Processing10
+7.4.System Output10
+7.5.Other10
+7.6.Constraints11
+7.7.Data Handling11
+7.8.Error Handling11
+8.Functional Requirement FR-REQ-5.311
+8.1.Description11
+8.2.System Input11
+8.3.System Processing11
+8.4.System Output12
+8.5.Other12
+8.6.Constraints12
+8.7.Data Handling12
+8.8.Error Handling12
+9.Functional Requirement FR-REQ-5.412
+9.1.Description13
+9.2.System Input13
+9.3.System Processing13
+9.4.System Output13
+9.5.Other13
+9.6.Constraints13
+9.7.Data Handling13
+9.8.Error Handling14
+10.Functional Requirement FR-REQ-5.514
+10.1.Description14
+10.2.System Input14
+10.3.System Processing14
+10.4.System Output15
+10.5.Other15
+10.6.Constraints15
+10.7.Data Handling15
+10.8.Error Handling15
+11.Functional Requirement FR-REQ-5.615
+11.1.Description15
+11.2.System Input15
+11.3.System Processing16
+11.4.System Output16
+11.5.Other16
+11.6.Constraints16
+11.7.Data Handling16
+11.8.Error Handling16
+12.Functional Requirement FR-REQ-5.717
+12.1.Description17
+12.2.System Input17
+12.3.System Processing17
+12.4.System Output17
+12.5.Other17
+12.6.Constraints18
+12.7.Data Handling18
+12.8.Error Handling18
+13.Functional Requirement FR-REQ-5.818
+13.1.Description18
+13.2.System Input18
+13.3.System Processing18
+13.4.System Output19
+13.5.Other19
+13.6.Constraints19
+13.7.Data Handling19
+13.8.Error Handling19
+14.External Interface Requirement21
+14.1.Data Interfaces21
+14.2.User Interfaces21
+14.3.Other Interfaces21
+15.Non-Functional Requirements21
+15.1.System Performance22
+15.2.Information Security22
+15.3.Availability23
+15.4.Capacity23
+15.5.Usability23
+16.Functional Testing/Use-cases24
+Introduction
+Purpose
+This document is a detailed system requirements specification for the iCrowd Phone Accessories E-commerce System.
+This document builds upon the foundational business objectives outlined in the iCrowd Project Charter and initial client consultation notes (which serve as the business requirements baseline for this academic phase). This SRS will subsequently inform any future High-Level Design (HLD) or architectural planning. Any required changes to the business scope that arise in developing this System Requirements Specification (SRS) must be updated in the Project Charter.
+Beyond the technical prerequisites, this document serves the following goals:
+Business Objective: The system aims to provide a centralized digital storefront for mobile phone accessories, enabling automated inventory management and a streamlined purchasing process.
+Problem Alignment: iCrowd is designed to transition manual retail operations into a scalable online environment, reducing human error in order processing and stock tracking.
+Document Goal: This specification ensures that the development team has a clear blueprint for building a secure, high-performance platform that meets the needs of both retail administrators and end consumers.
+Scope
+This section describes the scope of the iCrowd system, detailing what is included and explicitly defining what is excluded.
+In Scope: The iCrowd system is a specialized e-commerce platform designed for mobile and consumer electronics accessories. The system includes:
+Store-front: A web-based interface for customers to browse, search, and filter accessories by device model or category.
+Cart & Checkout: A persistent shopping cart and a secure multi-step checkout process with simulated payment integration.
+Admin Dashboard: A private management area for inventory control (CRUD operations), order status updates, and sales reporting.
+Stock Management: Real-time stock level updates utilizing database concurrency protection (pessimistic locking) to prevent overselling.
+Out of Scope: The following features are explicitly out of scope for this phase of development:
+Native Mobile Applications: The scope is strictly limited to a responsive web-based platform; iOS or Android apps will not be developed.
+Real-time Delivery Tracking: Integration with third-party courier GPS tracking is not included.
+Internal HR/Payroll: The system manages consumer-facing inventory but will not manage internal iCrowd employee systems.
+Data Flow Diagram
+Figure 1.1: Level 0 Context Data Flow Diagram illustrating the external data exchanges for the iCrowd e-commerce system.
+Definitions and Acronyms
+This section describes any terms used throughout this document.
+API: Application Programming Interface.
+CRUD: Create, Read, Update, Delete.
+HLD: High-Level Design.
+JWT: JSON Web Token.
+RBAC: Role-Based Access Control.
+SRS: System Requirements Specification.
+References
+This section lists any references and includes pre-requisite documentation and any other supporting documentation such as diagrams.
+iCrowd Project Charter (Initial scope and business objectives).
+Client consultation notes and preliminary requirements gathered during stakeholder meetings.
+Department of Computer Science third-year group project guidelines and syllabus.
+General Description
+System Functions
+This section describes the high-level purpose and core functional modules of the iCrowd e-commerce system. The system operates as a centralized platform that facilitates the online retail of mobile phone accessories. Its primary functions include:
+Identity and Access Management: Secure user registration, JWT-based authentication, and Role-Based Access Control (RBAC) to differentiate between public customers and internal administrators.
+Product Catalogue and Search Engine: A dynamic, searchable, and filterable database of inventory items (headsets, power banks, and phone cases) displaying real-time pricing and availability.
+Shopping Cart and Transaction Processing: A persistent cart system that calculates real-time totals, applies promotional discounts, and executes secure checkouts using pessimistic database locking to prevent inventory overselling.
+Payment Integration: Secure, tokenized routing of payment intents to an external Payment Gateway to authorize transactions without storing sensitive financial data locally.
+Administrative Data Management (CRUD): A secure back-office interface allowing store managers to create, read, update, and delete product listings and update order fulfilment statuses.
+Automated Analytics and Notifications: Visual aggregation of sales data (profit margins, order volume) for administrative reporting, alongside automated email dispatch for customer order receipts.
+User Characteristics
+The iCrowd system is designed for two primary user roles, each requiring distinct interfaces and access levels.
+1. The Customer (End-User)
+Characteristics: General consumers looking to purchase mobile accessories. They are assumed to have basic web navigation skills but require no formal training to use the system.
+Interface Type: Self-service, global interface. The UI is designed for intuitive browsing, cart management, and streamlined checkout. It focuses on accessibility, clear calls to action, and visual product representation.
+Predicted Platforms: 
+Devices: Highly fragmented. Expected to be accessed primarily via mobile smartphones, with secondary access via desktop/laptop computers.
+Operating Systems: iOS, Android, Windows, and macOS.
+Target Browsers: Must be fully responsive and functional on modern mobile and desktop browsers.
+2. The Administrator (Store Manager)
+Characteristics: Internal retail staff or business owners responsible for managing inventory and monitoring sales. They are considered trained users who understand the business logic of order fulfilment and stock keeping.
+Interface Type: Data entry and organizational management interface. The UI is a secure, private dashboard focused on utility, data grids (tables), form submissions for inventory CRUD operations, and graphical data visualization (charts).
+Predicted Platforms:
+Devices: Primarily accessed via desktop or laptop computers, as data entry and analytics viewing require larger screen real estate.
+Operating Systems: Windows and macOS.
+Target Browsers: Modern desktop browsers, optimized specifically for Google Chrome and Microsoft Edge.
+General Constraints
+Software Constraints
+This section outlines the limitations, technical standards, and licensing constraints governing the iCrowd system's architecture.
+Open-Source Licensing Strategy: To minimize the Total Cost of Ownership (TCO) for the client, the core application is constrained to open-source software (OSS) and frameworks with permissive licenses.
+Impact: The client will not need to pay annual enterprise licensing fees for the core tech stack. However, the development team must ensure no restrictive licenses are integrated that would force the client to open-source their proprietary business logic.
+Third-Party Service Dependencies: The system relies on external vendor APIs for critical business operations—specifically a Payment Gateway and an SMTP/Email delivery service.
+Impact: The client must create and maintain commercial accounts with these third-party providers. Furthermore, iCrowd's checkout availability is directly constrained by the uptime of the chosen payment gateway.
+Web Standards and Browser Compatibility: The frontend must adhere to modern HTML, CSS, and JavaScript standards.
+Impact: The system will be cross-platform and accessible via standard web browsers. However, legacy browsers (like older versions of Internet Explorer) will not be officially supported, reducing backward compatibility.
+Hardware Constraints
+This section details the hardware and infrastructure requirements for deploying the iCrowd system in a live, production environment.
+Production Server Procurement: The client is required to procure commercial cloud hosting (e.g., a Virtual Private Server) to deploy the backend application and relational database.
+Impact: The chosen hardware tier will directly dictate the system's performance. To support the baseline requirement of concurrent active shoppers without latency, the production server must meet minimum specifications capable of simultaneously running the server-side application logic and the database engine.
+Media Storage Constraints: Relational databases are highly inefficient for storing binary media. Therefore, the core database is constrained to storing only text data and image file paths.
+Impact: The client must procure a separate cloud storage bucket or allocate a dedicated file system specifically to host high-resolution product images.
+Client-Side Hardware Impact: Because the system utilizes modern web interfaces, rendering and data processing share the load with the user's device.
+Impact: Users accessing the site on outdated hardware or extremely slow mobile connections may experience slower load times. The development team is constrained to optimizing asset sizes to mitigate this hardware limitation.
+Assumptions and Dependencies
+This section outlines the foundational assumptions made during the requirements gathering phase and the external dependencies required for the iCrowd system to function successfully.
+Assumptions
+End-User Environment: It is assumed that customers and administrators will access the platform using modern, JavaScript-enabled web browsers over a stable internet connection.
+Client Asset Provisioning: It is assumed that the retail shop management will provide the initial master inventory dataset—including accurate pricing, SKU numbers, and high-resolution product images—prior to the system's production launch.
+Business Rules Stability: It is assumed that the core business logic of the store (e.g., tax calculation rules, accepted currency, and domestic shipping zones) will remain unchanged throughout the development lifecycle.
+Basic User Literacy: It is assumed that the target customer demographic possesses basic digital literacy required to navigate standard e-commerce workflows, such as managing a shopping cart and completing checkout forms.
+Dependencies
+Payment Gateway API: The system's core ability to process financial transactions is strictly dependent on the availability, uptime, and correct functioning of the third-party payment gateway integration.
+Email Notification Service: The automated dispatch of order receipts, password reset links, and system alerts depends entirely on the uptime and deliverability metrics of the selected external SMTP/Email API provider.
+Hosting Infrastructure: The system’s general availability, performance, and database integrity depend heavily on the reliability and continuous uptime of the procured commercial cloud hosting provider.
+Open-Source Ecosystem: The development timeline and system security are dependent on the continued availability, community support, and regular security patching of the underlying open-source frameworks and libraries used to build the application.
+Functional Requirements Master List
+This section lists the functional requirements in summary form. Each of these will be further defined in subsequent sub-sections.
+Req. ID
+Requirement Name
+Requirement Description
+FR-REQ-5.1
+User Authentication & Access Control
+Secure registration, login, and Role-Based Access Control (RBAC) to differentiate between Customers and Admins.
+FR-REQ-5.2
+Customer Profile & Account Management
+Customer dashboard for managing personal information, shipping addresses, and viewing order history.
+FR-REQ-5.3
+Product Catalogue & Search
+Interface for browsing consumer electronics (headsets, power banks, etc.) with advanced filtering and keyword search.
+FR-REQ-5.4
+Cart Management & Checkout
+Dynamic shopping cart allowing quantity modifications and total price calculation including discounts.
+FR-REQ-5.5
+Stock Control & Concurrency Management
+Database-level logic to prevent overselling during simultaneous purchases and temporary stock reservation.
+FR-REQ-5.6
+Order Processing & Payment
+Secure transition from cart to confirmed order, including integration with a third-party payment gateway.
+FR-REQ-5.7
+Admin Inventory & Promotions
+Dashboard tools for the admin to execute CRUD operations on products and configure system-wide or targeted discounts.
+FR-REQ-5.8
+System Reporting & Data Visualization
+Automated low-stock alerts, transactional emails, and an advanced graphical analytics dashboard providing dynamic visual representations (pie charts, graphs) of profit margins and itemized sales performance.
+Functional Requirement FR-REQ-5.1
+Description
+This covers the User Authentication and Access Control module for the iCrowd system. It defines how new users register, how existing users securely log in, and how the system enforces Role-Based Access Control (RBAC) to restrict access to administrative features.
+System Input
+Registration: User's full name, valid email address, phone number, and a secure password.
+Login: Registered email address and password.
+Session Validation: Secure authentication token transmitted via HTTP headers.
+System Processing
+Validation Rule: The system shall verify that the provided email address is not already registered in the database before creating a new account.
+Security Rule: The system shall hash and salt the plain-text password using a standard cryptographic algorithm (e.g., Bcrypt) before executing the database insert operation.
+Authentication Rule: Upon login, the system shall compare the hashed password. If successful, the server shall generate and sign a secure token (e.g., JWT) containing the user's ID and role (Customer or Admin).
+Authorization Rule: The system shall check the token's role claim before granting access to protected data routes.
+System Output
+Registration Success: A new user record created in the database, a success message sent to the client interface, and an automated verification email triggered.
+Login Success: An authentication token returned to the client application, followed by system access to either the Customer Profile or the Admin Dashboard based on the user's role.
+Other
+This module acts as the prerequisite dependency for all other authenticated functional requirements (e.g., Cart Management, Admin Inventory).
+Constraints
+Passwords must never be transmitted or stored in plain text.
+Login sessions must automatically expire after 24 hours of inactivity.
+Data Handling
+User inputs shall be sanitized to prevent injection attacks and Cross-Site Scripting (XSS).
+Email addresses shall be validated against standard Regex formats prior to database insertion.
+Data exchanged between the client and server shall be formatted in JSON over secure HTTPS.
+Error Handling
+Registration Errors: If an email is already in use, the system shall return a specific "Email already registered" error to the user interface.
+Login Errors: If authentication fails, the system shall return a generic "Invalid email or password" error to prevent malicious credential guessing.
+Access Errors: If a user attempts to access a restricted page without proper authorization, the system shall return a "403 Forbidden" error and redirect them to the login screen.
+Functional Requirement FR-REQ-5.2
+Description
+This requirement covers the functionalities available to authenticated Customers for managing their personal details, updating their default shipping addresses, and viewing their historical and active order statuses within their personalized dashboard.
+System Input
+Profile Updates: Customer's updated first name, last name, and contact number.
+Address Management: Street address, city, postal code, and district/province.
+Security Updates: Current password and new password (when requesting a password change).
+Data Retrieval: Customer's unique user ID (securely extracted from their active session token) to fetch their specific order history.
+System Processing
+Authorization Check: The system shall verify that the active session token is valid and belongs to the user requesting the data modification.
+Update Logic: When processing a profile update, the system shall overwrite the existing database record specifically matching the authenticated user's ID.
+History Retrieval Logic: The system shall query the relational database for all orders associated with the user ID, sorting them chronologically (newest first), and joining the product details for each purchased item.
+Password Verification: If the user attempts to change their password, the system must verify that the provided "Current Password" matches the existing hashed password in the database before applying the new one.
+System Output
+Profile View: A populated graphical dashboard displaying the user's currently saved information and the real-time fulfilment status of their active orders (e.g., Pending, Processing, Shipped).
+History View: A chronological list or table of past orders, displaying the purchase date, unique order ID, total monetary amount, and payment status.
+Confirmation: Visual success indicators (e.g., toast notifications or success banners) returned to the client interface when profile details are successfully updated.
+Other
+This module acts as a prerequisite for the Checkout process (FR-REQ-5.6), as saved shipping addresses are pulled from this profile data to expedite the purchase flow.
+Constraints
+Data Isolation: Customers must be strictly prevented from accessing, viewing, or modifying any profile or order data belonging to other users (prevention of Insecure Direct Object Reference vulnerabilities).
+Account Deletion: Accounts cannot be entirely deleted by the user if there are pending or active orders currently in the fulfilment pipeline.
+Data Handling
+Contact numbers must be validated to ensure they match standard local dialling formats before database insertion.
+Updated passwords must be salted and hashed before replacing the old password in the database.
+Address fields should be sanitized to remove potentially malicious characters.
+Error Handling
+Validation Errors: If a user leaves a mandatory field blank during an update, the system shall return a "Required field missing" error to the interface.
+Security Errors: If the "Current Password" provided during a password update is incorrect, the system shall reject the request and return an "Incorrect current password" warning.
+Empty States: If the user queries their order history but has not made any past purchases, the system shall return a successful but empty response, prompting the interface to display a friendly "No orders yet" message rather than a system error.
+Functional Requirement FR-REQ-5.3
+Description
+This requirement defines the Discovery Engine of the iCrowd system. It specifies how Customers discover electronics accessories by querying the database, utilizing keyword searches, and applying multi-level filters (e.g., category, price, device compatibility).
+System Input
+Keyword Search: Free-text string entered by the user.
+Filter Parameters: Category selection, minimum and maximum price ranges, and specific device compatibility tags.
+Sorting Preferences: User-selected sorting rules (e.g., "Price: Low to High", "Newest Arrivals", "Highest Rated").
+Pagination Parameters: Current page number and the requested number of items per page.
+System Processing
+Query Construction: The server shall dynamically construct a database query based on the active inputs.
+Search Logic: For keyword inputs, the system shall perform pattern matching against the product name, description, and tags in the database.
+Filter Logic: For categorical or numerical inputs (like price), the system shall apply exact match or range-based conditions to narrow the result set.
+Visibility Rule: The system shall automatically exclude any products that the admin has explicitly marked as "hidden" or "inactive" from the final query results.
+Pagination Calculation: The system shall calculate the database OFFSET and LIMIT based on the requested page number to fetch only a specific chunk of data.
+System Output
+Product Dataset: An array of structured product records (formatted in JSON) containing essential display data: Product ID, name, price, stock status (e.g., "In Stock" or "Out of Stock"), thumbnail image reference, and aggregated user ratings.
+Metadata: Total count of available items matching the query and total number of pages (used by the client interface to render pagination controls).
+Other
+This functional module serves as the primary gateway to the Commerce Pipeline; users must successfully query the catalogue before they can interact with the Cart Management module (FR-REQ-5.4).
+Constraints
+Performance constraint: The database queries for catalogue browsing and searching must be highly optimized (e.g., using proper table indexing) to ensure results are returned within the 3-second performance threshold defined in the non-functional requirements.
+Data Handling
+Sanitization: All free-text search inputs must be strictly sanitized to strip out malicious characters, preventing SQL Injection vulnerabilities.
+Data Formatting: All monetary outputs must be consistently formatted to two decimal places representing the local currency before being sent to the client interface.
+Error Handling
+Empty Results: If a specific search or filter combination yields zero database matches, the system shall return an empty data array accompanied by a specific status code, prompting the client interface to display a user-friendly "No products match your criteria" message.
+Invalid Parameters: If the system receives logically impossible filter parameters (e.g., a minimum price that is higher than the maximum price), it shall ignore the invalid constraint and return the default, unfiltered catalog dataset or return a "Bad Request" warning.
+Functional Requirement FR-REQ-5.4
+Description
+A description of this requirement: This module manages the Customer's shopping cart and the pre-payment checkout phases. It governs how items are added, how quantities are modified, and how the system dynamically calculates the final payable amount, including taxes, shipping, and promotional discounts
+System Input
+Cart Actions: Product ID and the requested quantity.
+Modifications: Increment, decrement, or remove commands for items already in the cart.
+Promotions: Alphanumeric discount codes entered by the Customer.
+Checkout Data: Selected shipping address ID and preferred shipping method.
+System Processing
+Price Verification Rule: The system shall never trust the product price sent from the client interface. It must independently query the database using the Product ID to fetch the true current price to prevent client-side manipulation.
+Calculation Logic: The server shall multiply the true unit price by the requested quantity for each item, sum the subtotals, apply any valid promotional discounts, and add applicable shipping fees to determine the final payable amount.
+Persistence Logic: For authenticated users, the system shall save the cart state to the relational database, ensuring the user does not lose their selected items if they log out or switch devices.
+Promo Validation: The system shall verify if an entered discount code exists in the database, is currently active, and whether its usage limit has been reached.
+System Output
+Cart State Object: A structured JSON response containing the list of selected items, individual subtotals, the applied discount amount, and the verified grand total.
+Checkout Summary: A final review screen data payload presented to the user just before they execute the payment gateway transaction.
+Other
+This module acts as the direct precursor to Order Processing & Payment (FR-REQ-5.6) and runs concurrently with Stock Control & Concurrency Management (FR-REQ-5.5) to ensure items in the cart are available.
+Constraints
+The system must strictly limit the maximum quantity of a single item a user can add to their cart to prevent malicious inventory hoarding.
+Cart calculations must update in real-time (within the 3-second performance threshold) when a user modifies a quantity.
+Data Handling
+Financial Precision: All monetary calculations within the server logic must be handled using exact decimal types or integer cents to prevent floating-point math errors (e.g., avoiding scenarios where $19.99 + $19.99 equals $39.979999).
+Sanitization: Promotional code inputs must be sanitized to prevent injection attacks before querying the database.
+Error Handling
+Out of Stock Error: If a user attempts to add a quantity that exceeds the current master inventory, the system shall return an "Insufficient stock available" warning and automatically adjust the cart to the maximum available quantity.
+Promo Errors: If an invalid or expired discount code is applied, the system shall return an "Invalid or expired promotional code" message without modifying the cart total.
+Data Mismatch: If a product in the cart is deleted by an Admin before the Customer checks out, the system shall automatically remove the item from the cart and alert the Customer that "An item in your cart is no longer available."
+Functional Requirement FR-REQ-5.5
+Description
+This requirement defines the Stock Control and Concurrency Management module. It specifies the database-level logic required to maintain accurate inventory records, temporarily reserve items during the checkout process, and prevent race conditions (overselling) when multiple Customers attempt to purchase the same product simultaneously.
+System Input
+Reservation Request: Product IDs and requested quantities triggered when a customer initiates the checkout process.
+Payment Webhook/Callback: A success or failure signal received from the external Payment Gateway (FR-REQ-5.6).
+Session Expiry: A system-generated trigger indicating that a Customer has abandoned their cart or taken too long to complete the payment.
+System Processing
+Transaction Initiation: The server shall initiate an ACID-compliant database transaction before verifying stock.
+Concurrency Lock (Pessimistic Locking): The system shall apply a row-level lock on the specific product records being purchased to prevent other transactions from modifying the stock count simultaneously.
+Stock Verification: While the lock is active, the system shall verify that the requested quantity is less than or equal to the available master stock.
+Temporary Reservation: If stock is available, the system shall temporarily deduct the requested amount from an "available stock" column, allowing the user to proceed to payment.
+Permanent Deduction (Commit): Upon receiving a successful payment signal, the system shall finalize the transaction and permanently update the master inventory.
+Stock Release (Rollback): If the payment fails or the session expires, the system shall execute a rollback, releasing the reserved stock back to the available pool.
+System Output
+Checkout Authorization: A secure clearance signal sent to the Commerce Pipeline allowing the user to proceed to the payment gateway.
+Database State: An updated relational database table reflecting either the newly reserved stock or the permanently deducted inventory.
+Other
+This module acts as the internal bridge between the user's Cart (FR-REQ-5.4) and the final Order Processing (FR-REQ-5.6).
+Constraints
+ACID Compliance: The underlying database must strictly enforce Atomicity, Consistency, Isolation, and Durability to ensure financial and inventory data is never left in a corrupted state.
+Lock Timeout: Database row locks must have a strict, short timeout (e.g., a few seconds) to prevent the entire system from freezing if a single transaction hangs.
+Data Handling
+Data Types: Inventory quantities must strictly use unsigned integer data types at the database level (as it is impossible to have negative physical stock or fractional headsets).
+Isolation Levels: The database transaction must be configured to an appropriate isolation level (e.g., 'Read Committed' or 'Serializable') to prevent dirty reads.
+Error Handling
+Concurrency Conflict (Race Condition): If a Customer attempts to checkout but another user's transaction has already locked and depleted the final stock, the system shall safely abort the current transaction and return a "Product sold out during checkout" error to the user interface.
+Deadlocks: The system server must automatically detect database deadlocks, gracefully terminate the blocked transaction, and prompt the user to "Please try again."
+Timeout Errors: If the payment gateway takes too long to respond, the system shall time out, release the inventory lock, and log an "Incomplete Transaction" warning.
+Functional Requirement FR-REQ-5.6
+Description
+This requirement governs the Order Processing and Payment module. It manages the final transition of a user's shopping cart into a confirmed order by capturing delivery logistics, securely interfacing with a third-party payment gateway, and generating automated post-purchase communications.
+System Input
+Logistics Data: Customer-selected shipping address and preferred delivery method.
+Payment Token: A secure, one-time use transaction token generated by the external payment gateway provider.
+Payment Webhook: An asynchronous server-to-server callback signal from the gateway confirming the transaction status (Success, Declined, or Pending).
+System Processing
+Pre-Flight Validation: The system shall verify that the cart total exactly matches the payment intent amount sent to the gateway to prevent client-side price manipulation.
+API Integration: The server shall securely transmit the transaction request payload to the third-party payment gateway API using the gateway's required cryptographic signatures or secret keys.
+State Transition: Upon receiving a "Success" webhook from the gateway, the system shall create a permanent "Order" record in the database, mapping the purchased items, the locked price, and the external transaction ID.
+Notification Trigger: Following a successful database insertion, the system shall interface with an external SMTP service to dispatch an order confirmation email.
+Cart Clearing: Upon successful order creation, the system shall clear the active cart associated with the Customer's session.
+System Output
+Order Record: A finalized, immutable order entry in the relational database with a status set to "Processing".
+Customer Receipt: A digital invoice and order summary screen rendered on the client interface, displaying a unique, system-generated Order Tracking Number.
+Email Dispatch: An automated electronic receipt and estimated delivery timeline sent to the Customer's registered email address.
+Other
+This module acts as the culmination of the Commerce Pipeline, heavily depending on the successful execution of Cart Management (FR-REQ-5.4) and Concurrency Locks (FR-REQ-5.5).
+Constraints
+PCI-DSS Compliance Constraint: The iCrowd server and database must never process, transmit, or store raw credit card numbers or CVV codes locally. All sensitive financial inputs must be handled directly by the external gateway's iframe or secure tokenization fields.
+Idempotency: The payment processing endpoint must be idempotent, ensuring that if a user accidentally double-clicks the "Pay" button, they are not charged twice for the same order.
+Data Handling
+Data Transmission: All communications with the external payment API and SMTP servers must be encrypted using strict HTTPS (TLS 1.2 or higher).
+Audit Trails: The database must strictly record the external Gateway Transaction ID and a timestamp alongside the internal Order ID for financial reconciliation and refund processing.
+Error Handling
+Payment Declined: If the gateway returns a "Declined" or "Insufficient Funds" status, the system shall safely roll back the database transaction, release the inventory locks, and return a polite "Payment could not be processed" error to the UI.
+Webhook Timeout: If the server does not receive a callback from the gateway within a predefined window, the order status shall be marked as "Pending/Manual Review", and an alert shall be sent to the admin dashboard.
+Email Failure: If the SMTP server fails to send the receipt, the system shall still complete the order but log an internal "Notification Failure" error to be reviewed by the Administrator.
+Functional Requirement FR-REQ-5.7
+Description
+This requirement defines the Administrative Inventory and Promotions module. It grants authorized store managers the ability to perform full CRUD (Create, Read, Update, Delete) operations on the product catalogue and configure business logic for system-wide or targeted promotional discounts.
+System Input
+Product Data: Form inputs containing the Product Name, Category, Device Compatibility, Unit Price, Initial Stock Quantity, and textual descriptions.
+Media Assets: Image files (e.g., JPEG, PNG) representing the product thumbnails and gallery.
+Promotional Data: Configuration parameters for discounts, including the alphanumeric Promo Code, discount percentage or fixed amount, start date, expiry date, and usage limits.
+Authorization: The admin's secure JSON Web Token (JWT) transmitted via HTTP headers.
+System Processing
+RBAC Validation: The server shall decode the JWT and verify that the requesting user holds the "Admin" role before processing any inventory modifications.
+Media Processing: The system shall process multipart/form-data uploads, save the image files to a designated storage directory or cloud bucket, and generate a unique URL reference to be stored in the relational database.
+Database Operations (CRUD): The system shall execute INSERT, UPDATE, or DELETE SQL commands to manage the master inventory records and promotional tables.
+Soft Deletion Logic: When an Admin "deletes" a product, the system shall execute a "soft delete" (e.g., setting an is_active Boolean to false) rather than a hard drop, ensuring historical order records attached to that product are not corrupted.
+System Output
+Dashboard State: An updated, real-time data table rendered on the Admin interface reflecting the new inventory levels or active promotions.
+Storefront Update: Immediate visibility of newly added or updated products on the public-facing Discovery Engine (FR-REQ-5.3).
+Confirmation: A visual "Action Successful" notification returned to the Admin.
+Other
+This module acts as the foundational data source for the entire system; the Product Catalog & Search (FR-REQ-5.3) depends entirely on the data entered through this administrative interface.
+Constraints
+Access Control: This interface must be strictly isolated from standard Customers.
+Business Logic Constraint: The system must prevent the creation of promotional discounts that would result in a negative final product price (e.g., applying a $50 discount to a $40 phone case).
+Data Handling
+SKU Generation: The system shall automatically generate or enforce a unique Stock Keeping Unit (SKU) identifier for every new product to prevent database collisions.
+Media Sanitization: Uploaded image files must be strictly validated for correct MIME types (preventing malicious script uploads disguised as images) and capped at a maximum file size to conserve server bandwidth.
+Input Sanitization: All text-based product descriptions must be sanitized to strip out unauthorized HTML or JavaScript tags.
+Error Handling
+Duplicate Entry: If an Admin attempts to create a product or promo code with an SKU/Code that already exists, the system shall reject the transaction and return a "Unique identifier already in use" error.
+File Upload Errors: If the Admin uploads an unsupported file format or a file exceeding the size limit, the system shall abort the upload and return a "Invalid media file" warning.
+Unauthorized Action: If a standard Customer attempts to send a POST request to these API endpoints, the system shall immediately terminate the connection and return a "403 Forbidden - Admin Access Required" error.
+Functional Requirement FR-REQ-5.8
+Description
+This requirement defines the System Reporting, Data Visualization, and Notification module. It provides the Administrator with an advanced, graphical analytics dashboard to monitor key business metrics (e.g., revenue, profit margins, itemized sales performance) using dynamic visualizations such as pie charts and graphs. It also manages automated system alerts, including low-stock warnings and transactional email dispatches.
+System Input
+Query Parameters: Admin-selected time ranges (e.g., "Last 7 Days", "Last 30 Days", "Year to Date") and categorization filters.
+Internal Data Sources: Historical records from the Orders, Order_Items, Products, and Supplier Inventory database tables.
+System Triggers: Automated backend events, such as an inventory count dropping below a predefined minimum threshold, or a successful order completion signal.
+System Processing
+Authorization Verification: The server must strictly validate the active session token to ensure only authorized Administrators can request financial aggregations.
+Financial Aggregation: The system shall execute complex database queries to aggregate total revenue over the specified time period.
+Profit Calculation: The system shall calculate true profit margins by dynamically subtracting the stored "Unit Cost" (from the supplier record) from the "Final Sale Price" for every itemized transaction.
+Data Transformation: The backend shall format the aggregated time-series and categorical data into structured JSON payloads optimized for client-side graphical rendering.
+Alert Logic: A background worker or scheduled task shall periodically evaluate master stock levels. If a product's stock falls below its minimum threshold, an alert flag is generated.
+System Output
+Visual Dashboard: The client interface shall render dynamic, interactive visual components, including Pie Charts (e.g., showing sales distribution by product category) and Line/Bar Graphs (e.g., tracking daily revenue trends).
+Tabular Reports: A detailed, exportable data table summarizing top-selling items and overall profit margins.
+Admin Notifications: A visual UI badge or toast notification alerting the admin to specific low-stock items requiring reordering.
+Automated Emails: Transactional emails (e.g., receipts, password resets) formatted via HTML templates and dispatched via an external SMTP server to the relevant users.
+Other
+This module is entirely dependent on the accurate data collection performed by Order Processing (FR-REQ-5.6) and the supplier costs entered in Admin Inventory (FR-REQ-5.7).
+Constraints
+Performance Impact: Heavy aggregation queries must be optimized (e.g., using database views or indexing on date columns) to ensure generating the analytics dashboard does not slow down the main storefront for active Customers.
+Data Privacy: Financial metrics and customer acquisition data must be strictly isolated from the public-facing application.
+Data Handling
+Time zone Normalization: All date-based aggregations must accurately account for standard time zones (e.g., UTC) to ensure daily sales are grouped correctly regardless of the server's physical location.
+Currency Formatting: All financial outputs on the graphical dashboard must be localized and strictly rounded to two decimal places.
+Error Handling
+Empty Datasets: If the Admin selects a date range with zero sales, the system shall return an empty array, prompting the visualization library to gracefully display a "No data available for this period" state rather than crashing the charts.
+SMTP Timeout: If the external email server is unreachable, the system shall queue the transactional email and retry the dispatch at a later interval, logging a "Notification Delivery Delayed" warning.
+External Interface Requirement
+Data Interfaces
+This section describes the APIs, endpoints, and data exchange protocols used within the iCrowd application.
+[EI-REQ-7.1.1] RESTful API Architecture: The client interface shall communicate with the server exclusively via a Representational State Transfer (REST) API structure, utilizing standard HTTP methods (GET, POST, PUT, DELETE) for all database operations.
+[EI-REQ-7.1.2] Data Exchange Format: The system shall strictly use JSON (JavaScript Object Notation) as the standard data exchange format for all API requests and responses between the client and server.
+[EI-REQ-7.1.3] Authentication Transmission: For all secure endpoints (e.g., checkout, inventory management), the client shall transmit a JSON Web Token (JWT) within the secure Authorization HTTP header.
+User Interfaces
+This section describes the requirements for the frontend screens that Customers and Admins will use.
+[EI-REQ-7.2.1] Platform Accessibility: The system shall provide a web-based interface accessible via modern desktop and mobile web browsers (e.g., Google Chrome, Apple Safari, Mozilla Firefox, Microsoft Edge).
+[EI-REQ-7.2.2] Responsive Design: The user interface shall be fully responsive, automatically adjusting its layout, grid system, and interactive elements to provide an optimal experience across desktop monitors, tablets, and smartphones.
+[EI-REQ-7.2.3] Role-Specific Views: The system shall present visually distinct interfaces based on the user's role: a visually engaging public storefront for Customers, and a secure, data-dense management dashboard for Administrators.
+[EI-REQ-7.2.4] User Feedback & Validation: The interface shall display clear, real-time feedback, including success messages and prominently highlighted error warnings for form validation.
+[EI-REQ-7.2.5] Theming: The system shall provide a user-accessible toggle to switch the interface between a light theme and a dark theme.
+Other Interfaces
+[EI-REQ-7.3.1] Payment Gateway Interface: The server shall integrate with a secure third-party payment gateway API to authorize online transactions.
+[EI-REQ-7.3.2] Email SMTP Interface: The system shall interface with an external SMTP server or Email API to automatically dispatch transactional notifications.
+[EI-REQ-7.3.3] Database Interface: The server shall interface directly with the Relational Database Management System via a secure database driver.
+[EI-REQ-7.3.4] Communication Security: All data transmitted between the client, server, and external APIs shall be encrypted using standard HTTPS (TLS 1.2 or higher) protocols.
+Non-Functional Requirements
+System Performance
+This section describes the system performance requirements. The following response times dictate the speed expectations for the iCrowd platform.
+Req. Id
+Description
+Response Time
+NF-PERF-1.1
+Time experienced by the user for regular UI tasks, such as navigating the product catalogue or modifying the shopping cart.
+1 to 3 seconds
+NF-PERF-1.2
+Time experienced by the user for intermediate system processing, such as applying search filters or updating their user profile.
+3 seconds
+NF-PERF-1.3
+Time experienced by the user for significant system processing, specifically securing database row-level locks during the checkout initiation.
+5 seconds
+NF-PERF-1.4
+Time experienced by the user for a process response where integration with the external Payment Gateway is required.
+7 to 10 seconds
+Information Security
+This section describes the information security requirements.
+Req. Id
+Description
+NF-SEC-1.1
+User credentials and sensitive personal data must never be transmitted or stored in plain text. All passwords must be hashed and salted using bcrypt.
+NF-SEC-1.2
+The system must enforce Role-Based Access Control (RBAC) ensuring Customers cannot access Admin endpoints, maintaining strict data privacy.
+NF-SEC-1.3
+Session management must utilize secure, HTTP-only JSON Web Tokens (JWT) that automatically expire after 24 hours of inactivity.
+NF-SEC-1.4
+The backend server must sanitize all user inputs (such as search queries and form data) to prevent SQL Injection and Cross-Site Scripting (XSS) attacks.
+Availability
+This section describes the availability requirements in terms of days and permissible planned and un-planned un-availability.
+Req. Id
+Description
+NF-AVA-1.1
+The core storefront shall aim for an operational uptime of 99% during typical business hours.
+NF-AVA-1.2
+Unplanned system unavailability (downtime) must not exceed a maximum of 8 hours per month.
+NF-AVA-1.3
+Planned maintenance (e.g., database migrations or server updates) must be scheduled outside of peak shopping hours.
+NF-AVA-1.4
+The system must exhibit fault tolerance; if the external payment gateway fails, the system must not crash, but instead safely preserve the user's cart.
+Capacity
+Req. Id
+Description
+NF-CAP-1.1
+The system must be able to manage the following concurrent user operation volumes in year ONE: At least 50 simultaneous active user sessions without performance degradation.
+NF-CAP-1.2
+The system must be able to manage the following data volumes in year ONE: Up to 1,000 unique product SKUs and 10,000 order records.
+NF-CAP-1.3
+The system must be able to manage the following concurrent user operation volumes in year TWO: Scalability to support 100 simultaneous active user sessions.
+NF-CAP-1.4
+The system must be able to manage the following data volumes in year TWO: Archival and retrieval capabilities for up to 25,000 historical order records.
+Usability
+Req. Id
+Description
+NF-USE-1.1
+The public storefront shall feature intuitive navigation patterns, allowing a new Customer to browse, add items, and checkout without external tutorials.
+NF-USE-1.2
+The admin dashboard shall be organized logically, enabling a store manager to learn how to add a new product or view an order in under 10 minutes.
+NF-USE-1.3
+The frontend interfaces shall strictly utilize proper HTML semantic tags and clear color contrasts to ensure the application remains readable and accessible.
+Functional Testing/Use-cases
+Use case ID
+Functional Requirement ID
+Description
+Input(s)
+Expected Output(s)
+FT-9.1a
+FR-REQ-5.1
+Valid User Login
+Registered email address and correct password.
+System validates credentials, securely generates a JWT, and grants access to the user dashboard.
+FT-9.1b
+FR-REQ-5.1
+Unauthorized Access Attempt
+A user submits an unregistered email or incorrect password.
+System safely denies access and returns a generic "Invalid email or password" error to prevent credential guessing.
+FT-9.2a
+FR-REQ-5.2
+Valid Profile Update
+Authenticated JWT and a new shipping address submitted via the profile form.
+Database record is successfully updated; a "Profile Updated" success message is displayed to the Customer.
+FT-9.2b
+FR-REQ-5.2
+Incomplete Profile Data
+Authenticated JWT; form submitted with the mandatory "Contact Number" field left blank.
+System rejects the database update and prevents empty data by highlighting the missing field with a validation error.
+FT-9.3a
+FR-REQ-5.3
+Product Search & Filter
+Keyword "power bank" with a filter for "Price: Low to High".
+System successfully constructs the query and returns a paginated, sorted array of matching products.
+FT-9.3b
+FR-REQ-5.3
+Conflicting Filter Parameters
+User sets a minimum price (Rs. 10,000) that is higher than the maximum price (Rs. 5,000).
+System identifies the logical impossibility, prevents a database crash, and gracefully returns a "No products match criteria" state.
+FT-9.4a
+FR-REQ-5.4
+Cart Calculation with Promo
+Add Product A (Qty: 2) to cart and apply a valid 10% discount code.
+Server fetches true prices directly from the database, calculates the accurate subtotal, deducts 10%, and displays the final payable amount.
+FT-9.4b
+FR-REQ-5.4
+Cart Quantity Exceeds Stock
+User attempts to add 5 units of an item when only 2 exist in the master inventory.
+System strictly blocks the action, returns an "Insufficient stock" warning, and caps the cart quantity at the maximum available (2).
+FT-9.5a
+FR-REQ-5.5
+Checkout Initiation
+User clicks "Checkout" while the requested items are verified to be in stock.
+System initiates an ACID transaction, locks the specific database rows, temporarily reserves the stock, and proceeds to payment.
+FT-9.5b
+FR-REQ-5.5
+Concurrency Race Condition
+Two users simultaneously click "Checkout" for the exact same, final remaining phone case.
+Row-level locking ensures User A successfully reserves the item; User B's transaction is safely aborted and rolled back with an "Out of stock" error.
+FT-9.6a
+FR-REQ-5.6
+Payment Success Callback
+Valid "Success" webhook received from the simulated external payment gateway.
+Order status securely updates to "Processing"; inventory deduction is permanently finalized; a confirmation email is dispatched.
+FT-9.6b
+FR-REQ-5.6
+Payment Declined Callback
+"Declined" or "Insufficient Funds" webhook received from the payment gateway.
+System executes a complete database rollback, releases the inventory lock, preserves the user's cart state, and displays a "Payment failed" error.
+FT-9.7a
+FR-REQ-5.7
+Admin Product Creation
+Admin JWT; valid new product details and a standard image file format uploaded.
+Product is saved to the database, image URL is securely generated, and the product goes live on the public storefront.
+FT-9.7b
+FR-REQ-5.7
+Privilege Escalation Attempt
+A standard Customer (using a Customer JWT) attempts to send a POST request to the admin product creation endpoint.
+Server immediately terminates the connection, preventing database modification, and returns a "403 Forbidden - Admin Access Required" security error.
+FT-9.8a
+FR-REQ-5.8
+Dashboard Analytics Render
+Admin requests sales data aggregation for the "Last 30 Days".
+System accurately calculates profit margins via SQL aggregation and returns structured JSON to render the UI pie charts.
+FT-9.8b
+FR-REQ-5.8
+Empty Analytics Dataset
+Admin requests sales data for a date range containing zero transactions.
+System successfully handles the null result by returning an empty array, prompting the frontend to display "No data available" rather than crashing the charts.
