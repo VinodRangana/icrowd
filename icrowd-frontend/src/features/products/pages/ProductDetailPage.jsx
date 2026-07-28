@@ -41,20 +41,44 @@ const ProductDetailPage = () => {
       <div className="flex flex-col md:flex-row gap-12 mb-20 bg-surface/30 p-6 md:p-12 rounded-3xl border border-slate-700/50">
         
         {/* Left: Image */}
-        <div className="w-full md:w-1/2 aspect-square bg-slate-800 rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50">
-          <img 
-            src={product.imageUrl} 
-            alt={product.name}
-            className="w-full h-full object-cover"
-          />
+        <div className="lg:w-1/2">
+          <div className="aspect-square bg-slate-800 rounded-3xl overflow-hidden border border-slate-700/50 shadow-2xl relative">
+            <img 
+              src={product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls[0] : ''} 
+              alt={product.name}
+              className="w-full h-full object-cover"
+            />
+            
+            {/* Gallery thumbnails could go here later if we want to display multiple images */}
+            {product.imageUrls && product.imageUrls.length > 1 && (
+              <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+                {product.imageUrls.map((url, i) => (
+                   <div key={i} className="w-12 h-12 rounded-lg bg-slate-900 border border-slate-600 overflow-hidden">
+                     <img src={url} className="w-full h-full object-cover" />
+                   </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Right: Details */}
         <div className="w-full md:w-1/2 flex flex-col justify-center">
+          {/* Category & Tags */}
           <div className="mb-4">
-            <span className="text-sm font-bold text-primary uppercase tracking-wider bg-primary/10 px-3 py-1 rounded-full">
-              {product.category}
-            </span>
+            <Link to={`/search?category=${encodeURIComponent(product.category?.name || '')}`} className="inline-block text-primary font-bold tracking-widest uppercase text-sm mb-2 hover:underline">
+              {product.category?.name || 'Category'}
+            </Link>
+            
+            {product.tags && product.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {product.tags.map((tag, idx) => (
+                  <span key={idx} className="px-3 py-1 bg-slate-800 text-xs text-slate-400 rounded-full border border-slate-700">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
           
           <h1 className="text-4xl md:text-5xl font-black text-white mb-4">

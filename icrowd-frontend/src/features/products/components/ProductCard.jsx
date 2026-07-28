@@ -13,9 +13,9 @@ const ProductCard = ({ product }) => {
       </Link>
 
       {/* Product Image */}
-      <div className="aspect-[4/3] w-full overflow-hidden bg-slate-800">
+      <div className="aspect-square overflow-hidden bg-slate-800">
         <img 
-          src={product.imageUrl} 
+          src={product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls[0] : ''} 
           alt={product.name}
           className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${isOutOfStock ? 'opacity-50 grayscale' : ''}`}
         />
@@ -24,8 +24,8 @@ const ProductCard = ({ product }) => {
       {/* Product Details */}
       <div className="p-5 flex flex-col flex-grow">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-semibold uppercase tracking-wider text-primary">
-            {product.category}
+          <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+            {product.category?.name || 'Category'}
           </span>
           
           {/* Stock Badges */}

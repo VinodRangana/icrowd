@@ -42,4 +42,9 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/suggestions")
+    public ResponseEntity<SuggestionResponse> getSuggestions(@RequestParam String q) {
+        return ResponseEntity.ok(productService.getSearchSuggestions(q));
+    }
 }

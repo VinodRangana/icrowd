@@ -21,10 +21,18 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // Advanced dynamic query for Searching and Filtering with Pagination!
     @Query("SELECT p FROM Product p WHERE p.isActive = true " +
            "AND (:keyword IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%'))) " +
-           "AND (:category IS NULL OR p.category = :category)")
+           "AND (:category IS NULL OR LOWER(p.category.name) = LOWER(:category))")
     Page<Product> searchAndFilterProducts(
             @Param("keyword") String keyword, 
             @Param("category") String category, 
             Pageable pageable
     );
+
+    // Fetch all active product names for Fuzzy Keyword Suggestions
+    @Query("SELECT p.name FROM Product p WHERE p.isActive = true")
+    java.util.List<String> findAllActiveProductNames();
+
+    // Fetch all active products for building Rich Search Suggestions
+    @Query("SELECT p FROM Product p WHERE p.isActive = true")
+    java.util.List<Product> findAllActiveProductsList();
 }
